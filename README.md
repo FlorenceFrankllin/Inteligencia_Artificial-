@@ -1,6 +1,6 @@
-# Inteligência Artificial — GBC063 | FACOM / UFU
+# Inteligência Artificial  | 
 
-Repositório dedicado ao desenvolvimento prático e teórico da disciplina de **Inteligência Artificial (GBC063)** da Faculdade de Computação (FACOM) na Universidade Federal de Uberlândia (UFU).
+Repositório dedicado ao desenvolvimento prático e teórico da disciplina de **Inteligência Artificial** .
 
 * **Docente:** Prof. Marcelo Keese Albertini[cite: 1]
 * **Discentes:**
