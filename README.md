@@ -1,54 +1,45 @@
-# Inteligência Artificial 
+# Inteligência Artificial — GBC063 | FACOM / UFU
 
-Repositório destinado ao envio e acompanhamento do projeto com atividades práticas  da disciplina de **Inteligência Artificial ** 
+Repositório dedicado ao desenvolvimento prático e teórico da disciplina de **Inteligência Artificial (GBC063)** da Faculdade de Computação (FACOM) na Universidade Federal de Uberlândia (UFU).
 
-* **Docente:** Prof. Marcelo Keese Albertini
+* **Docente:** Prof. Marcelo Keese Albertini[cite: 1]
 * **Discentes:**
-  * Florence Franklin Jeronimo
-  * Luiz Fellipe Machado Tristão
-* **Domínio de Estudo:** Ambiente *Taxi*
+  * Florence Franklin Jeronimo[cite: 253]
+  * Luiz Fellipe Machado Tristão[cite: 253]
 
 ---
 
-## Desafio 1: Modelagem do Processo de Decisão de Markov (MDP)
+## 📌 Visão Geral da Disciplina
 
-O primeiro desafio consiste na formalização teórica do ambiente do **Taxi** segundo a tupla de decisão sequencial sob incerteza $(\mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma)$.
+O curso aborda a inteligência artificial sob a perspectiva de **tomada de decisão sequencial sob incerteza**, com ênfase aprofundada em **Aprendizagem por Reforço (Reinforcement Learning - RL)** (baseada na estrutura do CS234 de Stanford)[cite: 1, 4, 17, 21]. 
 
-### 1. Espaço de Estados ($\mathcal{S}$) e Propriedade de Markov
-O ambiente é totalmente observável e o estado do sistema é expresso de forma discreta:
-* **Posição do Táxi:** Coordenadas cartesianas em grade $5 \times 5$ ($25$ posições discretas).
-* **Posição do Passageiro:** $5$ possibilidades ($4$ pontos cardeais de embarque $R, G, Y, B$ ou dentro do táxi).
-* **Destino do Passageiro:** $4$ locais possíveis ($R, G, Y, B$).
-* **Cardinalidade do Espaço:** $\vert{}\mathcal{S}\vert{} = 25 \times 5 \times 4 = 500$ estados possíveis.
-
-> **Validação de Markov:** O estado $s_t = (\text{linha}, \text{coluna}, \text{passageiro}, \text{destino})$ atende rigorosamente a condição $\mathbb{P}(s_{t+1} \mid s_t, a_t) = \mathbb{P}(s_{t+1} \mid h_t, a_t)$, funcionando como estatística suficiente do histórico. O movimento futuro depende exclusivamente da posição e do status atual, sem dependência de trajetórias passadas.
-
-### 2. Espaço de Ações ($\mathcal{A}$)
-O agente possui 6 ações discretas ($\vert{}\mathcal{A}\vert{} = 6$):
-* `0`: Mover Sul ($\downarrow$)
-* `1`: Mover Norte ($\uparrow$)
-* `2`: Mover Leste ($\rightarrow$)
-* `3`: Mover Oeste ($\leftarrow$)
-* `4`: *Pickup* (Apanhar passageiro)
-* `5`: *Dropoff* (Desembarcar passageiro)
-
-*Dinâmica de transição:* Transições desimpedidas são determinísticas. Colisões com barreiras ou bordas mantêm o agente na mesma célula. Ações de embarque/desembarque fora de locais válidos não alteram o estado físico do passageiro.
-
-### 3. Função de Recompensa ($\mathcal{R}$) e Regime da Tarefa
-A função $R(s, a, s')$ incentiva a otimização temporal e pune erros operacionais:
-* $+20$: Conclusão da viagem com entrega bem-sucedida no destino correto (estado terminal).
-* $-10$: Execução de *Pickup* ou *Dropoff* ilegal (fora do local correto).
-* $-1$: Custo a cada passo executado (penalidade temporal que força o agente a encontrar a rota geodésica mínima).
-
-* **Regime:** Tarefa episódica com limite de passos.
-* **Fator de Desconto:** $\gamma = 0{,}99$ (horizonte efetivo $\approx 100$ passos).
+Ao longo do período, os tópicos estudados compreendem:
+1. **Fundamentos e Planejamento com Modelo:** Processos de Markov, Processos de Recompensa de Markov (MRPs) e Processos de Decisão de Markov (MDPs); Equação de Bellman e Programação Dinâmica (Iteração de Política e Iteração de Valor)[cite: 2, 33, 41, 55, 81, 90].
+2. **Avaliação e Predição Sem Modelo:** Estimação do valor $V^\pi$ via Monte Carlo (MC), Diferenças Temporais ($TD(0)$) e Equivalência de Certeza em regimes de fluxo e em lote (*batch*)[cite: 117, 121, 146, 153, 181].
+3. **Controle Tabular Sem Modelo:** Dilema de exploração vs. aproveitamento ($\epsilon$-guloso e condição GLIE), algoritmos SARSA (*on-policy*) e Q-learning (*off-policy*), análise do viés de maximização e Double Q-learning[cite: 176, 177, 201, 203, 204, 205, 211, 232].
+4. **Aproximação de Função Valor (VFA) e Deep RL:** Transição do formato tabular para aproximadores paramétricos, a "Tríade Mortal" (VFA + bootstrapping + off-policy) e arquiteturas Deep Q-Networks (DQN) com *experience replay* e *target networks* fixas[cite: 212, 214, 221, 223, 224, 225].
+5. **Métodos Baseados em Política e Tópicos Avançados:** Teorema do Gradiente de Política, arquiteturas Ator-Crítico, otimização de políticas proximais (PPO) e conexões com alinhamento de modelos de linguagem (RLHF/DPO)[cite: 5, 17, 234].
 
 ---
 
-## Estrutura do Repositório
+## 🚕 Sobre o Projeto Prático
+
+O projeto da disciplina é desenvolvido de maneira incremental ao longo do semestre, acompanhando os desafios práticos propostos pelo professor. O objetivo central é projetar, implementar, avaliar e comparar agentes autônomos de aprendizagem por reforço aplicados ao domínio do **Taxi**.
+
+O desenvolvimento ocorre em etapas cumulativas:
+* **Fase 1 (Desafio 1):** Modelagem formal do ambiente como um Processo de Decisão de Markov (definição rigorosa de estados markovianos, ações e função de recompensa)[cite: 24, 65].
+* **Fase 2:** Implementação e benchmarking de métodos tabulares clássicos sem modelo (SARSA vs. Q-learning) avaliando eficiência amostral e estabilidade de convergência[cite: 204, 205, 206].
+* **Fase 3:** Transição para espaços contínuos/vetorizados e implementação de controle com aproximação de função e Deep Q-Networks (DQN)[cite: 213, 220, 226].
+* **Fases Seguintes:** Otimização de políticas, refinamento de hiperparâmetros e análise empírica comparativa dos resultados.
+
+---
+
+## 📂 Organização do Repositório
 
 ```text
-├── docs/                 # Documentação complementar e notas de estudo
-├── presentation/         # Slides de apresentação do Desafio 1 (PDF)
-├── src/                  # Implementação do ambiente e algoritmos (Q-Learning / DQN)
-└── README.md             # Síntese do projeto e instruções de execução
+├── docs/                 # Notas técnicas, deduções matemáticas e referências
+├── presentation/         # Apresentações e slides dos marcos do projeto
+├── desafio-1/            # Entrega 1: Modelagem matemática do MDP (Taxi)
+│   ├── README.md         # Detalhamento específico do Desafio 1
+│   └── slides.pdf        # Apresentação do Desafio 1
+└── src/                  # Código-fonte das simulações, ambientes e algoritmos
